@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 class CardTable extends StatelessWidget {
@@ -16,7 +18,7 @@ class CardTable extends StatelessWidget {
           _SingleCard(
             color: Colors.pink,
             icon: Icons.card_membership_outlined,
-            text: 'Card',
+            text: 'ID Card',
           ),
         ]),
         // === === === Two === === ===
@@ -41,8 +43,8 @@ class CardTable extends StatelessWidget {
           ),
           _SingleCard(
             color: Colors.lightBlueAccent,
-            icon: Icons.tablet_mac_rounded,
-            text: 'Mobile',
+            icon: Icons.mobile_screen_share,
+            text: 'Mobile Share',
           ),
         ]),
         // === === === Four === === ===
@@ -81,26 +83,34 @@ class _SingleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(15),
-      height: 210,
-      decoration: BoxDecoration(
-          color: const Color.fromRGBO(62, 66, 107, 0.7),
-          borderRadius: BorderRadius.circular(25)),
-      // === === === === Circle and Icon
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          CircleAvatar(
-            backgroundColor: color,
-            radius: 40,
-            child: Icon(icon,color: Colors.white, size: 45),
+    margin: const EdgeInsets.all(15),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(25),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 10,sigmaY: 10),
+          child: Container(
+            height: 210,
+            decoration: BoxDecoration(
+                color: const Color.fromRGBO(62, 66, 107, 0.7),
+                borderRadius: BorderRadius.circular(25)),
+            // === === === === Circle and Icon
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircleAvatar(
+                  backgroundColor: color,
+                  radius: 40,
+                  child: Icon(icon,color: Colors.white, size: 45),
+                ),
+                const SizedBox(height: 20),
+                Text(
+                  text,
+                  style: const TextStyle(color: Colors.white, fontSize: 20),
+                ),
+              ],
+            ),
           ),
-          const SizedBox(height: 20),
-          Text(
-            text,
-            style: const TextStyle(color: Colors.white, fontSize: 20),
-          ),
-        ],
+        ),
       ),
     );
   }
