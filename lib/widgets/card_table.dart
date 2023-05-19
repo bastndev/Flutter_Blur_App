@@ -67,14 +67,12 @@ class CardTable extends StatelessWidget {
 
 // --- --- --- --- --- --- _SingleCard
 class _SingleCard extends StatelessWidget {
-  // const _SingleCard();
 
   final IconData icon;
   final Color color;
   final String text;
 
   const _SingleCard({
-    // super.key,
     required this.icon,
     required this.color,
     required this.text,
@@ -82,33 +80,47 @@ class _SingleCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return _CardBackground(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CircleAvatar(
+            backgroundColor: color,
+            radius: 40,
+            child: Icon(icon, color: Colors.white, size: 45),
+          ),
+          const SizedBox(height: 20),
+          Text(
+            text,
+            style: const TextStyle(color: Colors.white, fontSize: 20),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// --- --- --- --- --- Card Background
+class _CardBackground extends StatelessWidget {
+  final Widget child;
+
+  const _CardBackground({required this.child});
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
-    margin: const EdgeInsets.all(15),
+      margin: const EdgeInsets.all(15),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(25),
         child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 10,sigmaY: 10),
+          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
           child: Container(
             height: 210,
             decoration: BoxDecoration(
                 color: const Color.fromRGBO(62, 66, 107, 0.7),
                 borderRadius: BorderRadius.circular(25)),
-            // === === === === Circle and Icon
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircleAvatar(
-                  backgroundColor: color,
-                  radius: 40,
-                  child: Icon(icon,color: Colors.white, size: 45),
-                ),
-                const SizedBox(height: 20),
-                Text(
-                  text,
-                  style: const TextStyle(color: Colors.white, fontSize: 20),
-                ),
-              ],
-            ),
+            // === === Circle and Icon === === 
+            child: child,
           ),
         ),
       ),
